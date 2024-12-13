@@ -6,6 +6,7 @@ export default {
         './app/Filament/**/*.php',
         './resources/views/filament/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
+        './vendor/codewithdennis/filament-price-filter/resources/**/*.blade.php',
         './vendor/awcodes/filament-tiptap-editor/resources/**/*.blade.php',
     ],
 }

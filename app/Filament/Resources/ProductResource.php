@@ -8,6 +8,7 @@ use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Forms\Components\Slug;
 use App\Models\Product;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
+use CodeWithDennis\FilamentPriceFilter\Filament\Tables\Filters\PriceFilter;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\Enums\TiptapOutput;
 use FilamentTiptapEditor\TiptapEditor;
+use Illuminate\Support\Number;
 use RalphJSmit\Filament\SEO\SEO;
 
 class ProductResource extends Resource
@@ -47,6 +49,8 @@ class ProductResource extends Resource
                             ->relationship('images', 'id')
                             ->orderColumn('position')
                             ->required(),
+                        Forms\Components\TextInput::make('stock')->required()->numeric(),
+                        Forms\Components\TextInput::make('price')->required()->numeric(),
                     ]),
                     Forms\Components\Tabs\Tab::make('SEO')->schema([
                         SEO::make(),
@@ -61,9 +65,13 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('price')
+                    ->numeric()
+                    ->formatStateUsing(fn($state) => Number::currency(number_format($state / 100, 3))),
+                Tables\Columns\TextColumn::make('stock')->numeric(),
             ])
             ->filters([
-                //
+                PriceFilter::make('price'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
