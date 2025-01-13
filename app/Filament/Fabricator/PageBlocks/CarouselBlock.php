@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Fabricator\PageBlocks;
 
-use Filament\Forms\Components\Builder\Block;
-use Filament\Forms\Components\FileUpload;
+use FilamentTiptapEditor\TiptapEditor;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Builder\Block;
 use FilamentTiptapEditor\Enums\TiptapOutput;
-use FilamentTiptapEditor\TiptapEditor;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
-class CarouselBlock extends PageBlock
+final class CarouselBlock extends PageBlock
 {
     public static function getBlockSchema(): Block
     {
@@ -24,8 +26,8 @@ class CarouselBlock extends PageBlock
                     ->schema([
                         FileUpload::make('image')->required()
                             ->image()
-                            ->imageEditor()
-                    ])
+                            ->imageEditor(),
+                    ]),
             ]);
     }
 

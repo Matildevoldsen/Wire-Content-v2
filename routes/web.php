@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\AuthCallbackController;
-use App\Http\Controllers\AuthRedirectController;
-use App\Livewire\Pages\Article;
-use App\Livewire\Pages\Category;
+declare(strict_types=1);
+
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\Page;
+use App\Livewire\Pages\Article;
 use App\Livewire\Pages\Product;
+use App\Livewire\Pages\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthCallbackController;
+use App\Http\Controllers\AuthRedirectController;
 
 Route::get('/', Home::class)->name('home');
 Route::get('/articles/{article:slug}', Article::class)->name('article.show');

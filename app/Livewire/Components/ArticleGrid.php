@@ -1,22 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Components;
 
-use App\Models\Article as ArticleModel;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\View\View;
 use Livewire\Component;
-use \Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 use Livewire\WithPagination;
+use App\Models\Article as ArticleModel;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
-class ArticleGrid extends Component
+final class ArticleGrid extends Component
 {
     use WithPagination;
 
     public Collection $articles;
+
     public int $limit;
+
     public $category;
+
     public $sort_by;
+
     public bool $show_load_more = false;
 
     public function mount(): void
@@ -43,17 +49,23 @@ class ArticleGrid extends Component
         $this->show_load_more = $newArticles->count() >= $this->limit;
     }
 
+    public function render(): View
+    {
+        return view('livewire.components.article-grid');
+    }
+
     private function getBaseQuery(): Builder
     {
         return ArticleModel::with('categories')
             ->whereHas('categories', function ($query) {
-                $query->whereIn('categories.id',  (array) $this->category);
+                $query->whereIn('categories.id', (array) $this->category);
             });
     }
 
     private function getArticlesByViews(int $offset = 0): Collection
     {
-        $cacheKey = 'articles_by_views_' . implode('_', (array) $this->category) . '_offset_' . $offset;
+        $cacheKey = 'articles_by_views_'.implode('_', (array) $this->category).'_offset_'.$offset;
+
         return cache()->remember($cacheKey, now()->addMinutes(10), function () use ($offset) {
             return $this->getBaseQuery()
                 ->orderByViews() // Custom sorting by views
@@ -65,7 +77,7 @@ class ArticleGrid extends Component
 
     private function getArticlesBySortOrder(int $offset = 0): Collection
     {
-        $cacheKey = 'articles_by_sort_' . implode('_', (array) $this->category) . '_' . $this->sort_by . '_offset_' . $offset;
+        $cacheKey = 'articles_by_sort_'.implode('_', (array) $this->category).'_'.$this->sort_by.'_offset_'.$offset;
 
         return cache()->remember($cacheKey, now()->addMinutes(10), function () use ($offset) {
             $validColumns = ['created_at', 'updated_at'];
@@ -77,10 +89,5 @@ class ArticleGrid extends Component
                 ->limit($this->limit)
                 ->get();
         });
-    }
-
-    public function render(): View
-    {
-        return view('livewire.components.article-grid');
     }
 }

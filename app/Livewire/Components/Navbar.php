@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Components;
 
-use Illuminate\View\View;
 use Livewire\Component;
+use Illuminate\View\View;
 use Datlechin\FilamentMenuBuilder\Models\Menu;
-class Navbar extends Component
+
+final class Navbar extends Component
 {
     public bool $responsiveMenu = false;
 
     public function toggleDrawer(): void
     {
-        $this->responsiveMenu = !$this->responsiveMenu;
+        $this->responsiveMenu = ! $this->responsiveMenu;
     }
 
     public function render(): View

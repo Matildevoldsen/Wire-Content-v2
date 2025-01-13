@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\ProductStatus;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -19,7 +21,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->nullOnDelete();
             $table->text('content');
             $table->integer('price')->nullable(); // if no variants exist
-            $table->integer('stock')->nullable();// if no variants exist
+            $table->integer('stock')->nullable(); // if no variants exist
             $table->enum('status', [ProductStatus::values()]);
             $table->timestamps();
         });

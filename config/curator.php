@@ -1,5 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+use Awcodes\Curator\Models\Media;
+use Awcodes\Curator\Resources\MediaResource;
+use Awcodes\Curator\Curations\ThumbnailPreset;
+use Awcodes\Curator\Glide\DefaultServerFactory;
+
 return [
     'accepted_file_types' => [
         'image/jpeg',
@@ -21,12 +28,12 @@ return [
         'avif',
     ],
     'curation_presets' => [
-        \Awcodes\Curator\Curations\ThumbnailPreset::class,
+        ThumbnailPreset::class,
     ],
     'directory' => 'media',
     'disk' => env('FILAMENT_FILESYSTEM_DISK', 'public'),
     'glide' => [
-        'server' => \Awcodes\Curator\Glide\DefaultServerFactory::class,
+        'server' => DefaultServerFactory::class,
         'fallbacks' => [],
         'route_path' => 'curator',
     ],
@@ -38,7 +45,7 @@ return [
     'is_tenant_aware' => true,
     'tenant_ownership_relationship_name' => 'tenant',
     'max_size' => 5000,
-    'model' => \Awcodes\Curator\Models\Media::class,
+    'model' => Media::class,
     'min_size' => 0,
     'path_generator' => null,
     'resources' => [
@@ -50,7 +57,7 @@ return [
         'navigation_icon' => 'heroicon-o-photo',
         'navigation_sort' => null,
         'navigation_count_badge' => false,
-        'resource' => \Awcodes\Curator\Resources\MediaResource::class,
+        'resource' => MediaResource::class,
     ],
     'should_preserve_filenames' => false,
     'should_register_navigation' => true,
@@ -63,5 +70,5 @@ return [
     'multi_select_key' => 'metaKey',
     'table' => [
         'layout' => 'grid',
-    ]
+    ],
 ];

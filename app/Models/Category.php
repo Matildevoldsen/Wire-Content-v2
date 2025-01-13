@@ -1,22 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Awcodes\Curator\Models\Media;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
+use Awcodes\Curator\Models\Media;
+use Illuminate\Database\Eloquent\Model;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Category extends Model
+final class Category extends Model
 {
     use HasFactory;
     use HasSEO;
     use Searchable;
+
     protected $fillable = [
         'title',
         'slug',
@@ -29,12 +32,10 @@ class Category extends Model
         'parent_id',
     ];
 
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
 
     public function image(): BelongsTo
     {
@@ -43,7 +44,7 @@ class Category extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     public function articles(): BelongsToMany

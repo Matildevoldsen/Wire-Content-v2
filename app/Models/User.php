@@ -1,31 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
-use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Cashier\Billable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser, MustVerifyEmail
+final class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
+    use Billable;
     use HasApiTokens;
     use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use HasRoles;
-    use Billable;
-    use TwoFactorAuthenticatable;
     use HasPanelShield;
+    use HasProfilePhoto;
+    use HasRoles;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -59,6 +61,16 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'profile_photo_url',
     ];
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+
+    public function getIsEmailVerifiedAttribute(): bool
+    {
+        return $this->email_verified_at !== null;
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -70,15 +82,5 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return true;
-    }
-
-    public function getIsEmailVerifiedAttribute(): bool
-    {
-        return $this->email_verified_at !== null;
     }
 }

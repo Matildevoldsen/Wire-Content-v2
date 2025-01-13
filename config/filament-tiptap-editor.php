@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+use FilamentTiptapEditor\Actions\LinkAction;
+use FilamentTiptapEditor\Enums\TiptapOutput;
+use FilamentTiptapEditor\Actions\MediaAction;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -67,9 +73,9 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'media_action' => FilamentTiptapEditor\Actions\MediaAction::class,
-//    'media_action' => Awcodes\Curator\Actions\MediaAction::class,
-    'link_action' => FilamentTiptapEditor\Actions\LinkAction::class,
+    'media_action' => MediaAction::class,
+    //    'media_action' => Awcodes\Curator\Actions\MediaAction::class,
+    'link_action' => LinkAction::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +89,7 @@ return [
     |
     | See: https://tiptap.dev/guide/output
     */
-    'output' => FilamentTiptapEditor\Enums\TiptapOutput::Html,
+    'output' => TiptapOutput::Html,
 
     /*
     |--------------------------------------------------------------------------

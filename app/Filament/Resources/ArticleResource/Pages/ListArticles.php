@@ -1,23 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\ArticleResource\Pages;
 
-use App\Enums\ArticleStatus;
-use App\Filament\Resources\ArticleResource;
 use Filament\Actions;
+use App\Enums\ArticleStatus;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\ArticleResource;
 
-class ListArticles extends ListRecords
+final class ListArticles extends ListRecords
 {
     protected static string $resource = ArticleResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
 
     public function getTabs(): array
     {
@@ -30,7 +25,14 @@ class ListArticles extends ListRecords
             'draft' => Tab::make('Draft')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('status', ArticleStatus::DRAFT);
-                })
+                }),
+        ];
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
         ];
     }
 }

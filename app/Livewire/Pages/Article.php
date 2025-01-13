@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Pages;
 
+use Livewire\Component;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
 use App\Models\Article as ArticleModel;
-class Article extends Component
+
+final class Article extends Component
 {
     public ArticleModel $article;
 

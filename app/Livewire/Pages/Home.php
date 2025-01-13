@@ -1,22 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Pages;
 
-use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use App\Models\Article as ArticleModel;
-use Z3d0X\FilamentFabricator\Models\Page;
+use App\Models\Product as ProductModel;
 
-class Home extends Component
+final class Home extends Component
 {
     public $articles;
+
+    public $products;
+
     public function mount(): void
     {
         $this->articles = ArticleModel::isPublished()->limit(8)->get();
+        $this->products = ProductModel::isPublished()->limit(8)->get();
     }
 
     #[Layout('layouts.app')]
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function render(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.pages.home');
     }

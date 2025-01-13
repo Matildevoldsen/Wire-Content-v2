@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Pages;
 
+use Livewire\Component;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
 use App\Models\Category as CategoryModel;
 
-class Category extends Component
+final class Category extends Component
 {
     public CategoryModel $category;
 

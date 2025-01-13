@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components;
 
-use App\Models\Category;
 use Closure;
-use Illuminate\Contracts\View\View;
+use App\Models\Category;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
-class TagComponent extends Component
+final class TagComponent extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public Category $category)
-    {
-    }
+    public function __construct(public Category $category) {}
 
     /**
      * Get the view / contents that represent the component.

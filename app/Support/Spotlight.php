@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
 use App\Models\Article;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Str;
 
-class Spotlight
+final class Spotlight
 {
     public function search(Request $request)
     {

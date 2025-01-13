@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\CategoryResource\Pages;
 
-use App\Filament\Resources\CategoryResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\CategoryResource;
 
-class CreateCategory extends CreateRecord
+final class CreateCategory extends CreateRecord
 {
     protected static string $resource = CategoryResource::class;
 }

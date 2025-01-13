@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Social;
 
-use App\Actions\Social\Contracts\CreatesUser;
 use App\Models\User;
+use App\Actions\Social\Contracts\CreatesUser;
 
-class CreateXUser implements CreatesUser
+final class CreateXUser implements CreatesUser
 {
     public function create($user): User
     {
         return User::firstOrCreate([
-            'x_id' => $user->getId()
+            'x_id' => $user->getId(),
         ], [
             'name' => $user->getName(),
             'email' => $user->getEmail(),

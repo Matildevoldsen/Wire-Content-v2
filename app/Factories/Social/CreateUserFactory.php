@@ -1,20 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Factories\Social;
 
-use App\Actions\Social\CreateGithubUser;
+use Exception;
 use App\Actions\Social\CreateXUser;
 
-class CreateUserFactory
+final class CreateUserFactory
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function forService(string $service): CreateXUser
     {
         return match ($service) {
-            'twitter' => new CreateXUser(),
-            default => throw new \Exception('Unsupported service')
+            'twitter' => new CreateXUser,
+            default => throw new Exception('Unsupported service')
         };
     }
 }

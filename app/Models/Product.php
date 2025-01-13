@@ -1,28 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Enums\ProductStatus;
-use Awcodes\Curator\Models\Media;
-use CyrildeWit\EloquentViewable\Contracts\Viewable;
-use CyrildeWit\EloquentViewable\InteractsWithViews;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use App\Enums\ProductStatus;
 use Laravel\Scout\Searchable;
+use Awcodes\Curator\Models\Media;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Product extends Model implements Viewable
+final class Product extends Model implements Viewable
 {
     use HasFactory;
     use HasSEO;
-    use Searchable;
     use InteractsWithViews;
+    use Searchable;
 
     protected $fillable = [
         'title',
@@ -31,12 +32,14 @@ class Product extends Model implements Viewable
         'content',
         'status',
         'stock',
-        'price'
+        'variants',
+        'price',
     ];
 
     protected $casts = [
         'status' => ProductStatus::class,
         'content' => 'array',
+        'variants' => 'array',
     ];
 
     public function user(): BelongsTo

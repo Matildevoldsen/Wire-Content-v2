@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\User;
+use Livewire\Livewire;
 use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\ApiTokenManager;
-use Livewire\Livewire;
 
 test('api tokens can be created', function () {
     if (Features::hasTeamFeatures()) {

@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory<User>
  */
-class UserFactory extends Factory
+final class UserFactory extends Factory
 {
     /**
      * The current password being used by the factory.
@@ -30,7 +32,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => self::$password ??= Hash::make('password'),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
@@ -52,7 +54,7 @@ class UserFactory extends Factory
     /**
      * Indicate that the user should have a personal team.
      */
-    public function withPersonalTeam(callable $callback = null): static
+    public function withPersonalTeam(?callable $callback = null): static
     {
         if (! Features::hasTeamFeatures()) {
             return $this->state([]);

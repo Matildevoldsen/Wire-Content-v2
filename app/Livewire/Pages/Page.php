@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Pages;
 
+use Livewire\Component;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
 use Z3d0X\FilamentFabricator\Models\Page as PageModel;
 
-class Page extends Component
+final class Page extends Component
 {
     public PageModel $page;
 

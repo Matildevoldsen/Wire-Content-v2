@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Components;
 
 use App\Models\Article;
-use Illuminate\View\View;
 use Livewire\Component;
+use Illuminate\View\View;
 
-class ArticleCard extends Component
+final class ArticleCard extends Component
 {
     public Article $article;
 

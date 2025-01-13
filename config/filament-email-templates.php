@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Models\User;
+use Filament\Pages\SubNavigationPosition;
+use Visualbuilder\EmailTemplates\DefaultTokenHelper;
+
 return [
     /**
      * If you wish to customise the table name change this before migration
@@ -7,11 +13,10 @@ return [
     'table_name' => 'vb_email_templates',
     'theme_table_name' => 'vb_email_templates_themes',
 
-
     /**
      * Mail Classes will be generated into this directory
      */
-    "mailable_directory" => 'Mail/Visualbuilder/EmailTemplates',
+    'mailable_directory' => 'Mail/Visualbuilder/EmailTemplates',
 
     /**
      * If you want to use your own token helper replace this class
@@ -30,9 +35,7 @@ return [
      *      }
      *  }
      */
-
-    'tokenHelperClass' => \Visualbuilder\EmailTemplates\DefaultTokenHelper::class,
-
+    'tokenHelperClass' => DefaultTokenHelper::class,
 
     /**
      * Some tokens don't belong to a model.  These $models->token will be checked
@@ -40,7 +43,7 @@ return [
     'known_tokens' => [
         'tokenUrl',
         'verificationUrl',
-        'message'
+        'message',
     ],
 
     /**
@@ -53,7 +56,7 @@ return [
             'icon' => 'heroicon-o-envelope',
             'group' => 'Content',
             'cluster' => false,
-            'position' => \Filament\Pages\SubNavigationPosition::Top
+            'position' => SubNavigationPosition::Top,
         ],
         'themes' => [
             'sort' => 20,
@@ -61,7 +64,7 @@ return [
             'icon' => 'heroicon-o-paint-brush',
             'group' => 'Content',
             'cluster' => false,
-            'position' => \Filament\Pages\SubNavigationPosition::Top
+            'position' => SubNavigationPosition::Top,
         ],
     ],
 
@@ -72,13 +75,13 @@ return [
     'template_view_path' => 'vb-email-templates::email',
 
     'template_keys' => [
-            'user-welcome'=>'User Welcome Email',
-            'user-request-reset'=>'User Request Password Reset',
-            'user-password-reset-success'=>'User Password Reset',
-            'user-locked-out'=>'User Account Locked Out',
-            'user-verify-email'=>'User Verify Email',
-            'user-verified'=>'User Verified',
-            'user-login'=>'User Logged In',
+        'user-welcome' => 'User Welcome Email',
+        'user-request-reset' => 'User Request Password Reset',
+        'user-password-reset-success' => 'User Password Reset',
+        'user-locked-out' => 'User Account Locked Out',
+        'user-verify-email' => 'User Verify Email',
+        'user-verified' => 'User Verified',
+        'user-login' => 'User Logged In',
     ],
 
     //Default Logo
@@ -121,7 +124,7 @@ return [
 
     //Notifiable Models who can receive emails
     'recipients' => [
-        App\Models\User::class,
+        User::class,
     ],
 
     /**
@@ -131,7 +134,7 @@ return [
     'config_keys' => [
         'app.name',
         'app.url',
-        'email-templates.customer-services'
+        'email-templates.customer-services',
         // Add other safe config keys here.
         // We don't want to allow all config keys they may contain secret keys or credentials
     ],

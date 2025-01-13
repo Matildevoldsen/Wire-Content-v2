@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'shield_resource' => [
         'should_register_navigation' => true,

@@ -1,33 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
+use Filament\Panel;
+use Filament\Widgets;
+use Filament\PanelProvider;
 use App\Filament\Pages\Dashboard;
 use Awcodes\Curator\CuratorPlugin;
-use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
-use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Panel;
-use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Hasnayeen\Themes\ThemesPlugin;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\TextInput;
+use Filament\Http\Middleware\Authenticate;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use Hasnayeen\Themes\Http\Middleware\SetTheme;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
-use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Visualbuilder\EmailTemplates\EmailTemplatesPlugin;
 use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
-class AdminPanelProvider extends PanelProvider
+final class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
@@ -47,7 +50,7 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationGroup('Content')
                     ->navigationSort(3)
                     ->navigationCountBadge()
-                    ->defaultListView('grid' || 'list'),
+                    ->defaultListView('grid'),
                 SpotlightPlugin::make(),
                 FilamentShieldPlugin::make(),
                 EmailTemplatesPlugin::make(),
@@ -61,7 +64,7 @@ class AdminPanelProvider extends PanelProvider
                     ->addMenuItemFields([
                         Toggle::make('is_admin'),
                         Toggle::make('use_navigate'),
-                        TextInput::make('icon')
+                        TextInput::make('icon'),
                     ]),
             ])
             ->colors([
@@ -83,7 +86,7 @@ class AdminPanelProvider extends PanelProvider
                 StartSession::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
-                \Hasnayeen\Themes\Http\Middleware\SetTheme::class,
+                SetTheme::class,
                 VerifyCsrfToken::class,
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,

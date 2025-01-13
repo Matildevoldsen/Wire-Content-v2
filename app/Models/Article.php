@@ -1,31 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Enums\ArticleStatus;
-use Awcodes\Curator\Models\Media;
-use CyrildeWit\EloquentViewable\Contracts\Viewable;
-use CyrildeWit\EloquentViewable\InteractsWithViews;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use App\Enums\ArticleStatus;
 use Laravel\Scout\Searchable;
+use Awcodes\Curator\Models\Media;
+use WireComments\Traits\Commentable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
-use WireComments\Traits\Commentable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Article extends Model implements Viewable
+final class Article extends Model implements Viewable
 {
-    use HasFactory;
     use Commentable;
-    use Searchable;
-    use SoftDeletes;
+    use HasFactory;
     use HasSEO;
     use InteractsWithViews;
+    use Searchable;
+    use SoftDeletes;
+
     protected $guarded = [];
 
     protected $casts = [

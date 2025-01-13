@@ -1,23 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Forms\Components\Slug;
+use Filament\Forms;
+use Filament\Tables;
 use App\Models\Category;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Forms\Components\Slug;
+use Filament\Resources\Resource;
+use RalphJSmit\Filament\SEO\SEO;
+use FilamentTiptapEditor\TiptapEditor;
+use FilamentTiptapEditor\Enums\TiptapOutput;
+use App\Filament\Resources\CategoryResource\Pages;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Tables\CuratorColumn;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use FilamentTiptapEditor\Enums\TiptapOutput;
-use FilamentTiptapEditor\TiptapEditor;
-use RalphJSmit\Filament\SEO\SEO;
 
-class CategoryResource extends Resource
+final class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
@@ -42,12 +43,12 @@ class CategoryResource extends Resource
                             ->searchable()
                             ->relationship('parent', 'title'),
                         Forms\Components\Hidden::make('user_id')
-                            ->dehydrateStateUsing(fn($state) => auth()->id())
+                            ->dehydrateStateUsing(fn ($state) => auth()->id()),
                     ]),
                     Forms\Components\Tabs\Tab::make('SEO')->schema([
                         SEO::make(),
-                    ])
-                ])
+                    ]),
+                ]),
             ])->columns(1);
     }
 

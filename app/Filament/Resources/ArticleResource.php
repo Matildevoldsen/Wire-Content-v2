@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
-use App\Enums\ArticleStatus;
-use App\Filament\Resources\ArticleResource\Pages;
-use App\Filament\Resources\ArticleResource\RelationManagers;
-use App\Forms\Components\Slug;
+use Filament\Forms;
+use Filament\Tables;
 use App\Models\Article;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Enums\ArticleStatus;
+use App\Forms\Components\Slug;
+use Filament\Resources\Resource;
+use RalphJSmit\Filament\SEO\SEO;
+use FilamentTiptapEditor\TiptapEditor;
+use FilamentTiptapEditor\Enums\TiptapOutput;
+use App\Filament\Resources\ArticleResource\Pages;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Tables\CuratorColumn;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use FilamentTiptapEditor\Enums\TiptapOutput;
-use FilamentTiptapEditor\TiptapEditor;
-use RalphJSmit\Filament\SEO\SEO;
 
-class ArticleResource extends Resource
+final class ArticleResource extends Resource
 {
     protected static ?string $model = Article::class;
 
@@ -40,17 +41,17 @@ class ArticleResource extends Resource
                             ->preload()
                             ->relationship('categories', 'title')
                             ->searchable(),
-                        Forms\Components\Hidden::make('user_id')->dehydrateStateUsing(fn($state) => auth()->id()),
+                        Forms\Components\Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => auth()->id()),
                         Forms\Components\Select::make('status')
-                            ->options(ArticleStatus::options())
+                            ->options(ArticleStatus::options()),
                     ]),
                     Forms\Components\Tabs\Tab::make('SEO')->schema([
                         SEO::make(),
                     ]),
                     Forms\Components\Tabs\Tab::make('Media')->schema([
                         CuratorPicker::make('media_id'),
-                    ])
-                ])
+                    ]),
+                ]),
             ])
             ->columns(1);
     }
@@ -79,7 +80,7 @@ class ArticleResource extends Resource
                     ->searchable()
                     ->relationship('categories', 'title'),
                 Tables\Filters\SelectFilter::make('status')->options(ArticleStatus::options()),
-                Tables\Filters\TrashedFilter::make()
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

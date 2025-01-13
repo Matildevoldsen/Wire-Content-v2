@@ -1,25 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
-use App\Enums\ProductStatus;
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Forms\Components\Slug;
+use Filament\Forms;
+use Filament\Tables;
 use App\Models\Product;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Enums\ProductStatus;
+use App\Forms\Components\Slug;
+use Illuminate\Support\Number;
+use Filament\Resources\Resource;
+use RalphJSmit\Filament\SEO\SEO;
+use FilamentTiptapEditor\TiptapEditor;
+use FilamentTiptapEditor\Enums\TiptapOutput;
+use App\Filament\Resources\ProductResource\Pages;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use CodeWithDennis\FilamentPriceFilter\Filament\Tables\Filters\PriceFilter;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use FilamentTiptapEditor\Enums\TiptapOutput;
-use FilamentTiptapEditor\TiptapEditor;
-use Illuminate\Support\Number;
-use RalphJSmit\Filament\SEO\SEO;
 
-class ProductResource extends Resource
+final class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
@@ -41,7 +42,7 @@ class ProductResource extends Resource
                             ->preload()
                             ->relationship('categories', 'title')
                             ->searchable(),
-                        Forms\Components\Hidden::make('user_id')->dehydrateStateUsing(fn($state) => auth()->id()),
+                        Forms\Components\Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => auth()->id()),
                         Forms\Components\Select::make('status')
                             ->options(ProductStatus::options()),
                         CuratorPicker::make('images')
@@ -55,7 +56,7 @@ class ProductResource extends Resource
                     Forms\Components\Tabs\Tab::make('SEO')->schema([
                         SEO::make(),
                     ]),
-                ])
+                ]),
             ])->columns(1);
     }
 
@@ -66,8 +67,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('price')
-                    ->numeric()
-                    ->formatStateUsing(fn($state) => Number::currency(number_format($state / 100, 3))),
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('stock')->numeric(),
             ])
             ->filters([

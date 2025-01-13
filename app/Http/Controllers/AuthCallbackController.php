@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Factories\Social\CreateUserFactory;
-use Filament\Events\Auth\Registered;
 use Illuminate\Http\Request;
+use Filament\Events\Auth\Registered;
 use Laravel\Socialite\Facades\Socialite;
+use App\Factories\Social\CreateUserFactory;
 
-class AuthCallbackController extends Controller
+final class AuthCallbackController extends Controller
 {
     /**
      * Handle the incoming request.

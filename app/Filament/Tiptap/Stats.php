@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Filament\Tiptap;
-use Filament\Forms\Components\TextInput;
-use FilamentTiptapEditor\TiptapBlock;
+declare(strict_types=1);
 
-class Stats extends TiptapBlock
+namespace App\Filament\Tiptap;
+
+use FilamentTiptapEditor\TiptapBlock;
+use Filament\Forms\Components\TextInput;
+
+final class Stats extends TiptapBlock
 {
     public string $preview = 'blocks.previews.stats';
 
