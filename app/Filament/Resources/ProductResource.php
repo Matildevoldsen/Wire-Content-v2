@@ -11,13 +11,13 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Enums\ProductStatus;
 use App\Forms\Components\Slug;
-use Illuminate\Support\Number;
 use Filament\Resources\Resource;
 use RalphJSmit\Filament\SEO\SEO;
 use FilamentTiptapEditor\TiptapEditor;
 use FilamentTiptapEditor\Enums\TiptapOutput;
 use App\Filament\Resources\ProductResource\Pages;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
+use Saade\FilamentAdjacencyList\Forms\Components\AdjacencyList;
 use CodeWithDennis\FilamentPriceFilter\Filament\Tables\Filters\PriceFilter;
 
 final class ProductResource extends Resource
@@ -55,6 +55,19 @@ final class ProductResource extends Resource
                     ]),
                     Forms\Components\Tabs\Tab::make('SEO')->schema([
                         SEO::make(),
+                    ]),
+                    Forms\Components\Tabs\Tab::make('Variants')->schema([
+                        AdjacencyList::make('variants')
+                            ->form([
+                                Forms\Components\TextInput::make('label')
+                                    ->required(),
+                                Forms\Components\TextInput::make('type')
+                                    ->required(),
+                                Forms\Components\TextInput::make('stock')
+                                    ->numeric()
+                                    ->required(),
+                            ]),
+
                     ]),
                 ]),
             ])->columns(1);

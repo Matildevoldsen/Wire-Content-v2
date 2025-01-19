@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 final class Product extends Component
 {
     public ProductModel $product;
+
     public string $previewUrl;
 
     public function mount(): void

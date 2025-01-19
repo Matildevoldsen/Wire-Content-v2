@@ -68,8 +68,8 @@ return [
         ],
     ],
 
-    //Email templates will be copied to resources/views/vendor/vb-email-templates/email
-    //default.blade.php is base view that can be customised below
+    // Email templates will be copied to resources/views/vendor/vb-email-templates/email
+    // default.blade.php is base view that can be customised below
     'default_view' => 'default',
 
     'template_view_path' => 'vb-email-templates::email',
@@ -84,35 +84,35 @@ return [
         'user-login' => 'User Logged In',
     ],
 
-    //Default Logo
+    // Default Logo
     'logo' => 'media/email-templates/logo.png',
 
-    //Browsed Logo
+    // Browsed Logo
     'browsed_logo' => 'media/email-templates/logos',
 
-    //Logo size in pixels -> 200 pixels high is plenty big enough.
+    // Logo size in pixels -> 200 pixels high is plenty big enough.
     'logo_width' => '500',
     'logo_height' => '126',
 
-    //Content Width in Pixels
+    // Content Width in Pixels
     'content_width' => '600',
 
-    //Contact details included in default email templates
+    // Contact details included in default email templates
     'customer-services' => ['email' => 'support@yourcompany.com',
         'phone' => '+441273 455702'],
 
-    //Footer Links
+    // Footer Links
     'links' => [
         ['name' => 'Website', 'url' => 'https://yourwebsite.com', 'title' => 'Goto website'],
         ['name' => 'Privacy Policy', 'url' => 'https://yourwebsite.com/privacy-policy', 'title' => 'View Privacy Policy'],
     ],
 
-    //Options for alternative languages
-    //Note that Laravel default locale is just 'en' you can use this but
-    //we are being more specific to cater for English vs USA languages
+    // Options for alternative languages
+    // Note that Laravel default locale is just 'en' you can use this but
+    // we are being more specific to cater for English vs USA languages
     'default_locale' => 'en_GB',
 
-    //These will be included in the language picker when editing an email template
+    // These will be included in the language picker when editing an email template
     'languages' => [
         'en_GB' => ['display' => 'British', 'flag-icon' => 'gb'],
         'en_US' => ['display' => 'USA', 'flag-icon' => 'us'],
@@ -122,7 +122,7 @@ return [
         'in' => ['display' => 'Hindi', 'flag-icon' => 'in'],
     ],
 
-    //Notifiable Models who can receive emails
+    // Notifiable Models who can receive emails
     'recipients' => [
         User::class,
     ],
@@ -139,8 +139,8 @@ return [
         // We don't want to allow all config keys they may contain secret keys or credentials
     ],
 
-    //Most built-in emails can be automatically sent with minimal setup,
-    //except "request password reset" requires a function in the User's model.  See readme.md for details
+    // Most built-in emails can be automatically sent with minimal setup,
+    // except "request password reset" requires a function in the User's model.  See readme.md for details
     'send_emails' => [
         'new_user_registered' => true,
         'verification' => true,
