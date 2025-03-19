@@ -13,6 +13,7 @@ use App\Enums\ProductStatus;
 use App\Forms\Components\Slug;
 use Filament\Resources\Resource;
 use RalphJSmit\Filament\SEO\SEO;
+use App\Enums\ProductVariantType;
 use FilamentTiptapEditor\TiptapEditor;
 use FilamentTiptapEditor\Enums\TiptapOutput;
 use App\Filament\Resources\ProductResource\Pages;
@@ -61,11 +62,17 @@ final class ProductResource extends Resource
                             ->form([
                                 Forms\Components\TextInput::make('label')
                                     ->required(),
-                                Forms\Components\TextInput::make('type')
+                                Forms\Components\Select::make('type')
+                                    ->searchable()
+                                    ->options(ProductVariantType::options())
                                     ->required(),
                                 Forms\Components\TextInput::make('stock')
                                     ->numeric()
                                     ->required(),
+                                Forms\Components\ColorPicker::make('color'),
+                                CuratorPicker::make('images')
+                                    ->multiple()
+                                    ->orderColumn('position'),
                             ]),
 
                     ]),

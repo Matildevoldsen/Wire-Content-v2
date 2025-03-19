@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "862da04bd372675e0394d8ebfd2bb8d4",
+    "content-hash": "63f931b1316f35c875beb842d413369b",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -374,82 +374,6 @@
                 }
             ],
             "time": "2024-09-02T14:20:04+00:00"
-        },
-        {
-            "name": "binafy/laravel-cart",
-            "version": "v1.0.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/binafy/laravel-cart.git",
-                "reference": "b9e83a85d775b877c574c5887a23f8889b85fbf3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/binafy/laravel-cart/zipball/b9e83a85d775b877c574c5887a23f8889b85fbf3",
-                "reference": "b9e83a85d775b877c574c5887a23f8889b85fbf3",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^9.0|^10.0|^11.0",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.5",
-                "orchestra/testbench": "^7.0|^8.0|^9.0",
-                "pestphp/pest-plugin-laravel": "^1.4.0|^2.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Binafy\\LaravelCart\\Providers\\LaravelCartServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Binafy\\LaravelCart\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "milwad-dev",
-                    "email": "milwad.dev@gmail.com",
-                    "homepage": "https://github.com/milwad-dev",
-                    "role": "author"
-                },
-                {
-                    "name": "binafy",
-                    "homepage": "https://github.com/binafy",
-                    "role": "owner"
-                }
-            ],
-            "description": "Laravel Cart is a customizable package for adding shopping cart functionality to Laravel applications",
-            "homepage": "https://github.com/binafy/laravel-cart",
-            "keywords": [
-                "Laravel Basket",
-                "Laravel cart",
-                "binafy",
-                "cart",
-                "framework",
-                "laravel",
-                "laravel cart package",
-                "laravel e-commerce",
-                "laravel package",
-                "laravel-cart",
-                "laravel-cart-shop",
-                "laravel-shop",
-                "milwad"
-            ],
-            "support": {
-                "issues": "https://github.com/binafy/laravel-cart/issues",
-                "source": "https://github.com/binafy/laravel-cart/tree/v1.0.9"
-            },
-            "time": "2024-08-15T16:19:59+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -5261,6 +5185,81 @@
                 }
             ],
             "time": "2024-08-19T11:52:18+00:00"
+        },
+        {
+            "name": "lukepolo/laracart",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lukepolo/laracart.git",
+                "reference": "5ef030d07fb4e5d2023e76480b481569718a637a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lukepolo/laracart/zipball/5ef030d07fb4e5d2023e76480b481569718a637a",
+                "reference": "5ef030d07fb4e5d2023e76480b481569718a637a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "illuminate/events": "~5.5.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0 || ^11.0",
+                "illuminate/session": "~5.5.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0 || ^11.0",
+                "illuminate/support": "~5.5.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0 || ^11.0",
+                "php": "~7.3 || ~7.4 || ~8.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "mockery/mockery": "^1.0",
+                "orchestra/database": "~3.5.0|~3.7.0|~3.8.0",
+                "orchestra/testbench": "~3.5.0|~3.7.0|~3.8.0 || ^9.0",
+                "phpunit/phpunit": "^7.5 || ^10.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "LaraCart": "LukePOLO\\LaraCart\\Facades\\LaraCart"
+                    },
+                    "providers": [
+                        "LukePOLO\\LaraCart\\LaraCartServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LukePOLO\\LaraCart\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luke Policinski",
+                    "email": "Luke@LukePOLO.com",
+                    "homepage": "http://LukePOLO.com"
+                }
+            ],
+            "description": "A simple cart for Laravel",
+            "homepage": "https://github.com/lukepolo/laracart",
+            "keywords": [
+                "cart",
+                "laravel",
+                "shopping",
+                "shopping cart"
+            ],
+            "support": {
+                "issues": "https://github.com/lukepolo/laracart/issues",
+                "source": "https://github.com/lukepolo/laracart/tree/2.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lukepolo",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-05-21T18:21:47+00:00"
         },
         {
             "name": "masterminds/html5",

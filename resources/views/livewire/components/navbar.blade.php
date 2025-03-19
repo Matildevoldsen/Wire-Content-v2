@@ -20,7 +20,7 @@
                 <li>
                     <a href="{{ $item->url }}" wire:navigate>
                         @if ($item->icon)
-                            <x-mary-icon name="{{ $item->icon }}" />
+                            <x-mary-icon name="{{ $item->icon }}"/>
                         @endif
                         {{ $item->title }}
                     </a>
@@ -39,6 +39,7 @@
             </a>
         @endguest
         @auth
+            <livewire:components.basket />
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
@@ -76,7 +77,7 @@
         <x-mary-menu class="p-0 m-0">
             @foreach ($menu->menuItems as $item)
                 <x-mary-menu-item title="{{ $item->title }}" link="{{ $item->url }}"
-                    icon="{{ $item->icon }}"/>
+                                  icon="{{ $item->icon }}"/>
             @endforeach
         </x-mary-menu>
     </x-mary-drawer>

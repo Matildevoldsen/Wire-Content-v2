@@ -19,4 +19,9 @@ final class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
+    }
 }

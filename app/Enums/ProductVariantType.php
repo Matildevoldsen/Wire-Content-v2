@@ -6,12 +6,11 @@ namespace App\Enums;
 
 use Illuminate\Support\Str;
 
-enum ProductStatus: string
+enum ProductVariantType: string
 {
-    case DRAFT = 'Draft';
-    case PUBLISHED = 'Published';
-    case ARCHIVED = 'Archived';
-    case DISCONTINUED = 'Discontinued';
+    case RANGE = 'Range';
+    case COLOR = 'Color';
+
 
     public static function values(): array
     {

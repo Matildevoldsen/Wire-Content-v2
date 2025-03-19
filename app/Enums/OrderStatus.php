@@ -22,7 +22,7 @@ enum OrderStatus: string
     public static function options(): array
     {
         return collect(self::cases())
-            ->mapWithKeys(fn ($case) => [$case->value => Str::title($case->name)])
+            ->mapWithKeys(fn ($case) => [$case->value => Str::of(Str::title($case->name))->replace('_', ' ')])
             ->all();
     }
 }
