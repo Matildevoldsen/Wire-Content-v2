@@ -8,9 +8,14 @@ use App\Models\Product;
 use Livewire\Component;
 use Illuminate\View\View;
 use Illuminate\Support\Collection;
+use LukePOLO\LaraCart\CartItem;
+use LukePOLO\LaraCart\LaraCart;
+use Mary\Traits\Toast;
 
 final class ProductVariantSelector extends Component
 {
+    use Toast;
+
     public Product $product;
 
     /**
@@ -52,23 +57,78 @@ final class ProductVariantSelector extends Component
             ->filter(fn ($variant) => $variant['type'] === 'Color');
     }
 
+    public function getSelectedOptions(): Collection
+    {
+        return  collect($this->selectedOptions);
+    }
+
+    private function findVariantById(string $optionId, array $variants = null): ?array
+    {
+        if (is_null($variants)) {
+            $variants = $this->product->variants;
+        }
+
+        foreach ($variants as $key => $variant) {
+            if ($key === $optionId) {
+                return $variant;
+            }
+
+            if (isset($variant['children']) && is_array($variant['children'])) {
+                $found = $this->findVariantById($optionId, $variant['children']);
+                if ($found !== null) {
+                    return $found;
+                }
+            }
+        }
+
+        return null;
+    }
+
     /**
      * (Optional) This method would be used to add the product with the selected
      * configuration to the basket.
      */
     public function addToBasket(): void
     {
-        // Validate that a color has been selected, and—for example—a valid Range option,
-        // if applicable. Use $this->selectedColor and $this->selectedOptions.
-        // Then add the product (and variant choices) to the basket.
-        // You may dispatch an event or redirect as needed.
-        //
-        // For this example, we simply emit an event.
-//        $this->dispatch('productAddedToBasket', [
-//            'productId' => $this->product->id,
-//            'color' => $this->selectedColor,
-//            'variants' => $this->selectedOptions,
-//        ]);
+        if (!$this->selectedColor) {
+            $this->error('Please select a color.');
+        }
+
+        // Default quantity is set to 1. You can adjust this as needed.
+        $quantity = 1;
+        $colorVariants = $this->getColorVariants();
+        $colorVariant = $colorVariants[$this->selectedColor] ?? null;
+        $selectedColorLabel = $colorVariant['label'] ?? 'Unknown Color';
+
+        // Build descriptive options for nested selections.
+        $descriptiveOptions = [];
+        foreach ($this->selectedOptions as $parentKey => $optionId) {
+            $variant = $this->findVariantById($optionId);
+            if ($variant) {
+                // Combines the variant type and label (e.g., "Size: Small").
+                $descriptiveOptions[$parentKey] = $variant['type'] . ': ' . $variant['label'];
+            }
+        }
+
+        $options = [
+            'selected_color'   => $selectedColorLabel,
+            'selected_options' => $descriptiveOptions,
+        ];
+
+        // Create a new CartItem instance.
+        $cartItem = new CartItem(
+            $this->product->id,
+            $this->product->title,
+            $this->product->price,
+            $quantity,
+            $options
+        );
+
+        $cart = app(LaraCart::class);
+
+        $cart->addItem($cartItem);
+
+        $this->success('Product added to basket.');
     }
 
     public function render(): View

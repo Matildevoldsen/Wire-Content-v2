@@ -45,6 +45,7 @@
             </main>
         </div>
         <x-mary-spotlight />
+        <x-mary-toast />
         @stack('modals')
         @livewireScriptConfig
     </body>
