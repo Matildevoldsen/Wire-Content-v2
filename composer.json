@@ -10,6 +10,7 @@
         "awcodes/filament-tiptap-editor": "^3.0",
         "bezhansalleh/filament-shield": "^3.2",
         "codewithdennis/filament-price-filter": "^0.0.4",
+        "cwsps154/app-settings": "^1.0",
         "cyrildewit/eloquent-viewable": "^7.0",
         "datlechin/filament-menu-builder": "^0.5.3",
         "dotswan/filament-laravel-pulse": "^1.1",

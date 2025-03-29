@@ -10,7 +10,9 @@
         @elseif(Route::currentRouteName() === 'category.show')
             {!! seo()->for(Route::current()->parameter('category')) !!}
         @else
-            <title>{{ config('app.name', 'Laravel') }}</title>
+            <title>
+                {{ get_settings('app.app_name') }}
+            </title>
         @endif
 
         <!-- Fonts -->

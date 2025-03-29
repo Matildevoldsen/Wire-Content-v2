@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use CWSPS154\AppSettings\AppSettingsPlugin;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
@@ -43,6 +44,7 @@ final class AdminPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->plugins([
                 ThemesPlugin::make(),
+                AppSettingsPlugin::make(),
                 CuratorPlugin::make()
                     ->label('Media')
                     ->pluralLabel('Media')
