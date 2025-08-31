@@ -15,6 +15,7 @@ use Hasnayeen\Themes\ThemesPlugin;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\TextInput;
 use Filament\Http\Middleware\Authenticate;
+use MarcoGermani87\FilamentCaptcha\FilamentCaptcha;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Illuminate\Session\Middleware\StartSession;
@@ -53,6 +54,7 @@ final class AdminPanelProvider extends PanelProvider
                     ->navigationSort(3)
                     ->navigationCountBadge()
                     ->defaultListView('grid'),
+                FilamentCaptcha::make(),
                 SpotlightPlugin::make(),
                 FilamentShieldPlugin::make(),
                 EmailTemplatesPlugin::make(),

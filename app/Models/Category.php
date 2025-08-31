@@ -32,6 +32,10 @@ final class Category extends Model
         'parent_id',
     ];
 
+    protected $casts = [
+        'content' => 'array',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

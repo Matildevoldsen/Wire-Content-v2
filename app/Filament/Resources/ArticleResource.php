@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Models\Category;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Article;
@@ -39,6 +41,44 @@ final class ArticleResource extends Resource
                         Forms\Components\Select::make('category')
                             ->multiple()
                             ->preload()
+                            ->createOptionUsing(function (array $data): int {
+                                $category = Category::create([
+                                    'title'            => $data['title'],
+                                    'slug'             => $data['slug'],
+                                    'content'          => $data['content'],
+                                    'media_id'         => $data['media_id'] ?? null,
+                                    'text_color'       => $data['text_color'] ?? null,
+                                    'background_color' => $data['background_color'] ?? null,
+                                    'is_tag'           => $data['is_tag'] ?? false,
+                                    'user_id'          => $data['user_id'] ?? null,
+                                    'parent_id'        => $data['parent_id'] ?? null,
+                                ]);
+
+                                return $category->getKey();
+                            })
+                            ->createOptionForm([
+                                Forms\Components\Tabs::make()->schema([
+                                    Forms\Components\Tabs\Tab::make('Content')->schema([
+                                        Forms\Components\TextInput::make('title'),
+                                        Slug::make('slug')->required(),
+                                        Forms\Components\Hidden::make('user_id')
+                                            ->dehydrateStateUsing(fn ($state) => auth()->id()),
+                                        TiptapEditor::make('content')
+                                            ->output(TiptapOutput::Json)
+                                            ->required(),
+                                        CuratorPicker::make('media_id'),
+                                        Forms\Components\ColorPicker::make('text_color'),
+                                        Forms\Components\ColorPicker::make('background_color'),
+                                        Forms\Components\Toggle::make('is_tag'),
+                                        Forms\Components\Select::make('parent_id')
+                                            ->searchable()
+                                            ->relationship('parent', 'title'),
+                                    ]),
+                                    Forms\Components\Tabs\Tab::make('SEO')->schema([
+                                        SEO::make(),
+                                    ]),
+                                ]),
+                            ])
                             ->relationship('categories', 'title')
                             ->searchable(),
                         Forms\Components\Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => auth()->id()),
@@ -74,7 +114,6 @@ final class ArticleResource extends Resource
                     ->searchable(),
             ])
             ->filters([
-
                 Tables\Filters\SelectFilter::make('categories')
                     ->multiple()
                     ->searchable()
@@ -83,6 +122,12 @@ final class ArticleResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                Tables\Actions\Action::make('preview')
+                    ->label('Preview')
+                    ->icon('heroicon-o-eye')
+                    ->openUrlInNewTab()
+                    ->color('gray')
+                    ->url(fn ($record) => route('article.show', $record)),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

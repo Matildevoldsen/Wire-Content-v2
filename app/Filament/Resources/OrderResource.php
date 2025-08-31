@@ -17,6 +17,7 @@ use App\Enums\OrderStatus;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Filament\Resources\OrderResource\Pages;
+use MarcoGermani87\FilamentCaptcha\Forms\Components\CaptchaField;
 
 final class OrderResource extends Resource
 {
@@ -34,7 +35,8 @@ final class OrderResource extends Resource
                 TextInput::make('discount'),
                 Select::make('status')
                     ->searchable()
-                    ->options(OrderStatus::options())
+                    ->options(OrderStatus::options()),
+                CaptchaField::make('captcha')
             ]);
     }
 

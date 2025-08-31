@@ -44,7 +44,6 @@ final class ProductVariantSelector extends Component
     public function selectColor(string $color): void
     {
         $this->selectedColor = $color;
-        // Reset any nested selections when the color changes.
         $this->selectedOptions = [];
     }
 
@@ -119,14 +118,16 @@ final class ProductVariantSelector extends Component
         $cartItem = new CartItem(
             $this->product->id,
             $this->product->title,
-            $this->product->price,
             $quantity,
+            $this->product->price,
             $options
         );
 
         $cart = app(LaraCart::class);
 
         $cart->addItem($cartItem);
+        $cart->update();
+        $this->dispatch('refreshBasket');
 
         $this->success('Product added to basket.');
     }

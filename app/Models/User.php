@@ -38,6 +38,7 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'name',
         'email',
         'password',
+        'cart_session_id'
     ];
 
     /**
